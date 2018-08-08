@@ -1,32 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+// Externals
 import { FormattedMessage } from 'react-intl';
-
-import A from './A';
-import Img from './Img';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+// Components
+import { makeSelectLocation } from './selectors';
 import NavBar from './NavBar';
-import HeaderLink from './HeaderLink';
-import Banner from './banner.jpg';
+import HeaderTitle from './HeaderTitle';
+import HeaderMenu from './HeaderMenu';
 import messages from './messages';
+
+// =================================================
 
 /* eslint-disable react/prefer-stateless-function */
 class Header extends React.Component {
   render() {
+    const { location } = this.props;
     return (
-      <div>
-        <A href="https://twitter.com/mxstbr">
-          <Img src={Banner} alt="react-boilerplate - Logo" />
-        </A>
-        <NavBar>
-          <HeaderLink to="/">
-            <FormattedMessage {...messages.home} />
-          </HeaderLink>
-          <HeaderLink to="/features">
-            <FormattedMessage {...messages.features} />
-          </HeaderLink>
-        </NavBar>
-      </div>
+      <NavBar>
+        <HeaderTitle>
+          <FormattedMessage {...messages.title} />
+        </HeaderTitle>
+        <HeaderMenu location={location} />
+      </NavBar>
     );
   }
 }
 
-export default Header;
+Header.propTypes = {
+  location: PropTypes.object,
+};
+const mapStateToProps = createStructuredSelector({
+  location: makeSelectLocation(),
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(Header);

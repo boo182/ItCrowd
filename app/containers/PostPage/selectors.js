@@ -5,7 +5,7 @@ import { initialState } from './reducer';
  * Direct selector to the postPage state domain
  */
 
-const selectPostPageDomain = state => state.get('postPage', initialState);
+const selectPostPageDomain = state => state.get('post', initialState);
 
 /**
  * Other specific selectors

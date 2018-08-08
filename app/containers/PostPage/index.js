@@ -8,7 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -17,29 +16,28 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectPostPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class PostPage extends React.PureComponent {
   render() {
+    const { post } = this.props;
     return (
       <div>
         <Helmet>
-          <title>PostPage</title>
-          <meta name="description" content="Description of PostPage" />
+          <title>{post.title}</title>
         </Helmet>
-        <FormattedMessage {...messages.header} />
+        <div>this is a test</div>
       </div>
     );
   }
 }
 
 PostPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  post: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
-  postpage: makeSelectPostPage(),
+  post: makeSelectPostPage(),
 });
 
 function mapDispatchToProps(dispatch) {
